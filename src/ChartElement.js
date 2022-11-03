@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 import styled from 'styled-components';
 
 import * as CheckupAPI from './api/CheckupAPI';
+import { getRandomRGB } from './utils';
 
 const ChartElement = ({ date }) => {
     const mockData = [
@@ -93,38 +94,97 @@ const ChartElement = ({ date }) => {
     };
 
     const createChartDatasets = (data) => {
-        console.log(data);
+        let checkupNames = [];
+        let uniqueCheckupNames = [];
+        let chartDatasets = [];
 
-        let label = [];
+        for (const value of data) {
+            checkupNames.push(value.checkupName);
 
-        data.map((data, index, array) => {
-            console.log(data);
+            /* const uniqueCheckupNames = checkupNames.filter(
+                (value, index, array) => {
+                    return checkupNames.indexOf(value) === index;
+                },
+            ); */
 
-            label.push(data.checkupName);
+            uniqueCheckupNames = [...new Set(checkupNames)].sort();
+        }
 
-            console.log(label);
+        // data.reduce((acc, cur, index) => {}, 0);
 
-            return label;
-        });
+        for (const checkupName of uniqueCheckupNames) {
+            chartDatasets = [
+                ...chartDatasets,
+                {
+                    type: 'line',
+                    label: checkupName,
+                    borderColor: getRandomRGB(),
+                    borderWidth: 2,
+                    data: [],
+                },
+            ];
+        }
 
-        return [
-            {
-                type: 'line',
-                label: 'WBC',
-                borderColor: 'rgb(54, 162, 235)',
-                borderWidth: 2,
-                data: [
-                    { x: '2022-01-02', y: 15 },
-                    { x: '2022-09-02', y: 8 },
-                    { x: '2022-10-02', y: 20 },
-                    { x: '2022-11-02', y: 10 },
-                ],
-            },
-        ];
+        let labelTable = {};
+
+        for (const index in chartDatasets) {
+            labelTable = {
+                [index]: {
+                    label: chartDatasets[index].label,
+                },
+            };
+        }
+
+        console.log(labelTable);
+
+        data.reduce((acc, cur, index) => {
+            console.log(acc);
+            console.log(chartDatasets[acc]);
+            if (cur.checkupName === chartDatasets[acc].label) {
+                console.log(cur.checkupName);
+            }
+
+            acc++;
+
+            return;
+        }, 0);
+
+        for (const checkupResult of data) {
+            // chartDatasets[0].type = 'bar';
+
+            data.findIndex();
+        }
+
+        /* for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < uniqueCheckupNames.length; j++) {
+                if (uniqueCheckupNames[j] === data[i].checkupName) {
+                    chartDatasets.data = {
+                        ...chartDatasets.data,
+                        x: data[i].registrationDate,
+                        y: data[i].resultValue,
+                    };
+                } else {
+                    chartDatasets = [
+                        ...chartDatasets,
+                        {
+                            type: 'line',
+                            label: data[i].checkupName,
+                            borderColor: getRandomRGB(),
+                            borderWidth: 2,
+                            data: [],
+                        },
+                    ];
+                }
+            }
+        } */
+
+        console.log(chartDatasets);
+
+        return chartDatasets;
     };
 
     const data = {
-        datasets: chartData,
+        datasets: chartData ? chartData : [],
     };
 
     const options = {
@@ -172,10 +232,7 @@ const ChartElement = ({ date }) => {
         maintainAspectRatio: false,
         responsive: true,
         onClick: (event, element) => {
-            console.log('====================================');
-            console.log(event);
             console.log(element);
-            console.log('====================================');
         },
         scales: {
             x: {

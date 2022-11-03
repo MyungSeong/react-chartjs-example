@@ -17,7 +17,15 @@ const DatePickerElement = ({ setDate }) => {
         <Container>
             <StyledDatePicker
                 selected={startDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => {
+                    if (startDate.getDate() < date.getDate()) {
+                        alert('현재 날짜를 초과할 수 없습니다');
+
+                        return;
+                    }
+
+                    setStartDate(date);
+                }}
                 dateFormat='yyyy-MM-dd'
                 locale={ko}
                 selectsStart
@@ -26,7 +34,15 @@ const DatePickerElement = ({ setDate }) => {
             />
             <StyledDatePicker
                 selected={endDate}
-                onChange={(date) => setEndDate(date)}
+                onChange={(date) => {
+                    if (endDate.getDate() < date.getDate()) {
+                        alert('현재 날짜를 초과할 수 없습니다');
+
+                        return;
+                    }
+
+                    setEndDate(date);
+                }}
                 dateFormat='yyyy-MM-dd'
                 locale={ko}
                 selectsEnd
