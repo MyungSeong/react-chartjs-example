@@ -201,7 +201,8 @@ const ChartElement = ({ date }) => {
                     label: (context) => {
                         let label = context.dataset.label + '' || '';
 
-                        return context.parsed.y !== null
+                        return context.parsed.y !== null &&
+                            context.raw.referenceValue !== null
                             ? `${label}: ${context.parsed.y} [${context.raw.referenceValue}]`
                             : null;
                     },
