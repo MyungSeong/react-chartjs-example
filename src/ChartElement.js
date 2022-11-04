@@ -64,6 +64,16 @@ const ChartElement = ({ date }) => {
             }, */
     ];
 
+    const initData = [
+        {
+            type: 'line',
+            label: '-',
+            borderColor: 'rgb(54, 162, 235)',
+            borderWidth: 2,
+            data: [{ x: new Date().toISOString().split(/[!T,?]/)[0], y: 0 }],
+        },
+    ];
+
     const [chartData, setChartData] = useState();
 
     useEffect(() => {
@@ -152,7 +162,7 @@ const ChartElement = ({ date }) => {
     };
 
     const data = {
-        datasets: chartData ? chartData : [],
+        datasets: chartData ? chartData : initData,
     };
 
     const options = {
