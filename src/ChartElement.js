@@ -145,6 +145,7 @@ const ChartElement = ({ date }) => {
                         {
                             x: checkupResult.registrationDate,
                             y: checkupResult.resultValue,
+                            referenceValue: checkupResult.referenceValue,
                         },
                     ];
                 }
@@ -201,7 +202,7 @@ const ChartElement = ({ date }) => {
                         let label = context.dataset.label + '' || '';
 
                         return context.parsed.y !== null
-                            ? `${label}: ${context.parsed.y} [${'10 / -'}]`
+                            ? `${label}: ${context.parsed.y} [${context.raw.referenceValue}]`
                             : null;
                     },
                 },
