@@ -107,10 +107,8 @@ const ChartElement = ({ date }) => {
                 },
             ); */
 
-            uniqueCheckupNames = [...new Set(checkupNames)].sort();
+            uniqueCheckupNames = [...new Set(checkupNames)];
         }
-
-        // data.reduce((acc, cur, index) => {}, 0);
 
         for (const checkupName of uniqueCheckupNames) {
             chartDatasets = [
@@ -125,60 +123,30 @@ const ChartElement = ({ date }) => {
             ];
         }
 
-        let labelTable = {};
+        for (const label of uniqueCheckupNames) {
+            const index = chartDatasets.findIndex(
+                (chartData) => label === chartData.label,
+            );
 
-        for (const index in chartDatasets) {
-            labelTable = {
-                [index]: {
-                    label: chartDatasets[index].label,
-                },
-            };
-        }
-
-        console.log(labelTable);
-
-        data.reduce((acc, cur, index) => {
-            console.log(acc);
-            console.log(chartDatasets[acc]);
-            if (cur.checkupName === chartDatasets[acc].label) {
-                console.log(cur.checkupName);
-            }
-
-            acc++;
-
-            return;
-        }, 0);
-
-        for (const checkupResult of data) {
-            // chartDatasets[0].type = 'bar';
-
-            data.findIndex();
-        }
-
-        /* for (let i = 0; i < data.length; i++) {
-            for (let j = 0; j < uniqueCheckupNames.length; j++) {
-                if (uniqueCheckupNames[j] === data[i].checkupName) {
-                    chartDatasets.data = {
-                        ...chartDatasets.data,
-                        x: data[i].registrationDate,
-                        y: data[i].resultValue,
-                    };
-                } else {
-                    chartDatasets = [
-                        ...chartDatasets,
+            for (const checkupResult of data) {
+                if (label === checkupResult.checkupName) {
+                    chartDatasets[index].data = [
+                        ...chartDatasets[index].data,
                         {
-                            type: 'line',
-                            label: data[i].checkupName,
-                            borderColor: getRandomRGB(),
-                            borderWidth: 2,
-                            data: [],
+                            x: checkupResult.registrationDate,
+                            y: checkupResult.resultValue,
                         },
                     ];
                 }
-            }
-        } */
 
-        console.log(chartDatasets);
+                /* if (label === checkupResult.checkupName) {
+                    chartDatasets[index].data.push({
+                        x: checkupResult.registrationDate,
+                        y: checkupResult.resultValue,
+                    });
+                } */
+            }
+        }
 
         return chartDatasets;
     };
