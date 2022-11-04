@@ -110,15 +110,15 @@ const ChartElement = ({ date }) => {
 
         for (const value of data) {
             checkupNames.push(value.checkupName);
-
-            /* const uniqueCheckupNames = checkupNames.filter(
-                (value, index, array) => {
-                    return checkupNames.indexOf(value) === index;
-                },
-            ); */
-
-            uniqueCheckupNames = [...new Set(checkupNames)];
         }
+
+        /* const uniqueCheckupNames = checkupNames.filter(
+            (value, index, array) => {
+                return checkupNames.indexOf(value) === index;
+            },
+        ); */
+
+        uniqueCheckupNames = [...new Set(checkupNames)];
 
         for (const checkupName of uniqueCheckupNames) {
             chartDatasets = [
