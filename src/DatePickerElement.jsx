@@ -50,6 +50,20 @@ const DatePickerElement = ({ setDate }) => {
                 endDate={endDate}
                 minDate={startDate}
             />
+            <StyledDatePicker
+                selected={startDate}
+                onChange={(dates) => {
+                    const [start, end] = dates;
+
+                    setStartDate(start);
+                    setEndDate(end);
+                }}
+                startDate={startDate}
+                endDate={endDate}
+                dateFormat='yyyy-MM-dd'
+                locale={ko}
+                selectsRange
+            />
         </Container>
     );
 };
@@ -60,7 +74,7 @@ const Container = styled.div`
 
 const StyledDatePicker = styled(DatePicker)`
     margin-top: 1.5rem;
-    width: 150px;
+    width: 160px;
     height: 42px;
     box-sizing: border-box;
     padding: 8px 20px;
