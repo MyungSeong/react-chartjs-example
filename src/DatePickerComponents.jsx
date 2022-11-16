@@ -14,7 +14,7 @@ import './styles/DatePickerComponents.css';
 const DatePickerComponents = ({ setDate }) => {
     const ref = useRef(null);
 
-    const [dates, setDates] = useState([0, 0]);
+    const [dates, setDates] = useState([]);
     const [visibleCalendar, setVisibleCalendar] = useState(true);
     const [focusedDateRange, setFocusedDateRange] = useState([0, 0]);
 
