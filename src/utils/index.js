@@ -1,3 +1,5 @@
+export { default as i18n } from './i18n.js';
+
 export const getRandomRGB = () => {
     const num = Math.round(0xffffff * Math.random());
 

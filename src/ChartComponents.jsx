@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import * as CheckupAPI from './api/CheckupAPI';
 import { getRandomRGB } from './utils';
 
-const ChartElement = ({ date }) => {
+const ChartComponents = ({ date }) => {
     const mockData = [
         {
             type: 'line',
@@ -297,4 +297,4 @@ const Container = styled.div`
     max-width: 900px;
 `;
 
-export default memo(ChartElement);
+export default memo(ChartComponents);
